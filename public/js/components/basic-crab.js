@@ -1,6 +1,13 @@
 import { Player } from "./player.js";
 
 export class BasicCrab extends Player {
+    constructor(scene, x, y, { hp, atk, def, critRate, critDamage, speed, runRatio, walkRatio }) {
+        super(scene, x, y, { hp, atk, def, critRate, critDamage, speed, runRatio, walkRatio });
+
+        this.setScale(0.7);
+        this.body.setSize(16, 8);
+    }
+
     static preload(scene) {
         if (scene instanceof Phaser.Scene) {
             scene.load.spritesheet("spritesheet-basic-crab", "./public/assets/player/basic-crab/basic-crab.png", {

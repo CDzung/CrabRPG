@@ -1,7 +1,8 @@
 import { BasicCrab } from "../components/basic-crab.js";
 import { Entity } from "../components/entity.js";
+import { GameScene } from "../components/game-scene.js";
 
-export class Jura01 extends Phaser.Scene {
+export class Jura01 extends GameScene {
     constructor() {
         super("Jura01");
     }
@@ -12,15 +13,6 @@ export class Jura01 extends Phaser.Scene {
     }
 
     create() {
-        const map = this.add.tilemap("jura-01");
-        const tileset_jungle = map.addTilesetImage("jungle", "tileset-jungle");
-
-        const layers = {
-            "Ground": map.createLayer("Ground", [tileset_jungle]),
-            "TL1": map.createLayer("TL1", [tileset_jungle]),
-            "TL2": map.createLayer("TL2", [tileset_jungle]),
-        }
-
         this.player = new BasicCrab(this, 0, 0, {
             hp: 20000,
             atk: 1600,
@@ -31,6 +23,19 @@ export class Jura01 extends Phaser.Scene {
             walkRatio: 0.5,
             runRatio: 1.3
         });
+
+        const map = this.add.tilemap("jura-01");
+        const tileset_jungle = map.addTilesetImage("jungle", "tileset-jungle");
+
+        this.layers = {
+            "Ground": map.createLayer("Ground", [tileset_jungle]).setDepth(this.player.depth - 2),
+            "TL1": map.createLayer("TL1", [tileset_jungle]).setDepth(this.player.depth - 1),
+            "TL2": map.createLayer("TL2", [tileset_jungle]).setDepth(this.player.depth + 1),
+        }
+
+        this.physics.add.collider(this.player, this.createCollisionOnLayer(this.layers.Ground));
+        this.physics.add.collider(this.player, this.createCollisionOnLayer(this.layers.TL1));
+        this.physics.add.collider(this.player, this.createCollisionOnLayer(this.layers.TL2));
     }
 
     update(params) {

@@ -5,9 +5,6 @@ export class Player extends Entity {
     constructor(scene, x, y, { hp, atk, def, critRate, critDamage, speed, runRatio, walkRatio }) {
         super(scene, x, y, null, { hp, atk, def, critRate, critDamage, speed, runRatio, walkRatio });
 
-        this.setScale(0.5);
-        this.body.setCircle(8, 8, 16);
-
         // animations
         this.animations = { idle: null, move: null, die: null, attack: null };
         this.create_anims();
