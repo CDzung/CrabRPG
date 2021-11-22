@@ -1,3 +1,4 @@
+import { HudManager } from "./js/components/HUD/hud-manager.js";
 import { Boot } from "./js/scenes/Boot.js";
 import { Jura01 } from "./js/scenes/Jura-01.js";
 
@@ -19,10 +20,10 @@ window.addEventListener("load", () => {
             arcade: {
                 fps: 60,
                 gravity: {},
-                debug: true
+                debug: false
             }
         },
 
-        scene: [Boot, Jura01]
+        scene: [Boot, Jura01, HudManager]
     });
 });

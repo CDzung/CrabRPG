@@ -10,8 +10,6 @@ export class GameScene extends Phaser.Scene {
         layer.layer.data.forEach(row => {
             row.forEach(col => {
                 col?.getCollisionGroup()?.objects.forEach(e => {
-                    console.log(e);
-
                     walls.add(this.physics.add.sprite(col.pixelX + e.x + layer.x - col.width / 2, col.pixelY + e.y + layer.y - col.height / 2, null)
                         .setOrigin(0, 0)
                         .setSize(e.width, e.height)

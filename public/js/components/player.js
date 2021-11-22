@@ -128,6 +128,7 @@ export class Player extends Entity {
             }
 
         } else {
+            this.body.setVelocity(0, 0);
             this.play(this.animations.die, true);
         }
 

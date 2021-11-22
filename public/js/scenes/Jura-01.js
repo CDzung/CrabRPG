@@ -1,6 +1,7 @@
 import { BasicCrab } from "../components/basic-crab.js";
 import { Entity } from "../components/entity.js";
 import { GameScene } from "../components/game-scene.js";
+import { HudManager } from "../components/HUD/hud-manager.js";
 
 export class Jura01 extends GameScene {
     constructor() {
@@ -24,6 +25,11 @@ export class Jura01 extends GameScene {
             runRatio: 1.3
         });
 
+        this.scene.get("HudManager")?.setPlayer(this.player);
+        
+
+        window.player = this.player;
+
         const map = this.add.tilemap("jura-01");
         const tileset_jungle = map.addTilesetImage("jungle", "tileset-jungle");
 
@@ -36,9 +42,12 @@ export class Jura01 extends GameScene {
         this.physics.add.collider(this.player, this.createCollisionOnLayer(this.layers.Ground));
         this.physics.add.collider(this.player, this.createCollisionOnLayer(this.layers.TL1));
         this.physics.add.collider(this.player, this.createCollisionOnLayer(this.layers.TL2));
+
     }
 
     update(params) {
         Entity.instances.forEach(value => value.update(params));
+
+        if (this.player.stats.cur.hp > 1) this.player.stats.cur.hp -= 100;
     }
 }
